@@ -13,3 +13,4 @@
 `define ADDR_REG7 `ADDR_W'h7 
 
 
+`define ZERO 0
