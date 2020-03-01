@@ -51,6 +51,7 @@ reg             i_wr       ; // i
 reg [ADDR_W-1:0]i_addr     ; // i
 reg [DATA_W-1:0]i_wr_data  ; // i 
 reg [DATA_W-1:0]o_rd_data  ; // o
+reg             o_ack      ; // o 
 reg             o_credit   ; // o
 reg [ERR_W-1:0] o_err      ; // o
 
@@ -62,6 +63,7 @@ reg [DATA_W-1:0]rd_data  ; // o
 reg             ack      ; // o
 reg             credit   ; // o
 reg [ERR_W-1:0] err      ; // o
+reg [ERR_W-1:0] err_next ; // o
 
 //Local registers
 reg [DATA_W-1:0] reg0;
@@ -72,7 +74,16 @@ reg [DATA_W-1:0] reg4;
 reg [DATA_W-1:0] reg5;
 reg [DATA_W-1:0] reg6;
 reg [DATA_W-1:0] reg7;
-
+reg              is_vld_wr_req;
+reg              is_vld_rd_req;
+reg [DATA_W-1:0] reg0_next;
+reg [DATA_W-1:0] reg1_next;
+reg [DATA_W-1:0] reg2_next;
+reg [DATA_W-1:0] reg3_next;
+reg [DATA_W-1:0] reg4_next;
+reg [DATA_W-1:0] reg5_next;
+reg [DATA_W-1:0] reg6_next;
+reg [DATA_W-1:0] reg7_next;
 //no need to flop the inputs, "other" blocks should do it at their end
 always @(*) begin
   req      = i_req    ; 
@@ -102,7 +113,7 @@ end
 //Write path::
 always_comb begin
   if(is_vld_wr_req) begin
-    err_next  = `NO_ERR
+    err_next  = `NO_ERR;
     reg0_next = reg0;
     reg1_next = reg1;
     reg2_next = reg2;

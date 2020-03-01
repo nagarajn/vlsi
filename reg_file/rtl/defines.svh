@@ -1,3 +1,5 @@
+`ifndef __defines__svh
+`define __defines__svh
 `define NO_ERR ERR_W'h0
 
 `define ADDR_W 32
@@ -14,3 +16,5 @@
 
 
 `define ZERO 0
+
+`endif
